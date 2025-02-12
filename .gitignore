@@ -1,0 +1,10 @@
+# Files
+.DS_Store
+.env
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# Folders
+node_modules/
+dist/
