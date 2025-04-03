@@ -8,10 +8,12 @@ export const getFiles = async () => {
   try {
     const { stdout } = await execPromisify(COMMANDS.gitStatus)
 
-    return stdout
+    const files = stdout
       .split('\n')
-      .map(line => line.split(' ')[1])
       .filter(Boolean)
+      .map(line => line.trim())
+
+    return files.map(line => line.split(' ')[1]).filter(Boolean)
   } catch (error) {
     console.log(error)
   }
