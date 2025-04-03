@@ -4,7 +4,7 @@ import { messages } from '../consts/messages.js'
 import { getConfig } from '../utils/getConfig.js'
 
 export const writeCommit = async ({ diffFiles }: { diffFiles: string }) => {
-  const { model, server } = await getConfig()
+  const { model, server, apiKey } = await getConfig()
   let initialValue: string | undefined
 
   if (model) {
@@ -23,7 +23,7 @@ export const writeCommit = async ({ diffFiles }: { diffFiles: string }) => {
       loading.start(messages.writeCommit.spinner.start)
 
       try {
-        initialValue = await generateCommit({ diffFiles, model, server })
+        initialValue = await generateCommit({ diffFiles, model, server, apiKey })
 
         loading.stop(messages.writeCommit.spinner.stop)
       } catch {

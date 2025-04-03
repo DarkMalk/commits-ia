@@ -1,30 +1,28 @@
+import OpenAI from 'openai'
 import { prompt } from '../consts/messages.js'
+import { Settings } from './getConfig.js'
 
 type Props = {
   diffFiles: string
-  model: string
-  server: string
-}
+} & Settings
 
-export const generateCommit = async ({ diffFiles, model, server }: Props) => {
-  const response = await fetch(server, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      model: model,
-      messages: [
-        {
-          role: 'user',
-          content: prompt + diffFiles
-        }
-      ]
-    })
+export const generateCommit = async ({ diffFiles, model, server, apiKey }: Props) => {
+  const client = new OpenAI({
+    baseURL: server,
+    apiKey
   })
 
-  const json = await response.json()
-  let commit: string = json.choices[0].message.content ?? ''
+  const completion = await client.chat.completions.create({
+    model,
+    messages: [
+      {
+        role: 'user',
+        content: prompt + diffFiles
+      }
+    ]
+  })
+
+  let commit: string = completion.choices[0].message.content ?? ''
   commit = commit.trim().replace(/"/g, '').slice(0, 72)
 
   return commit
