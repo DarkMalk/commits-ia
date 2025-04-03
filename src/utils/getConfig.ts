@@ -1,16 +1,20 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 
-type Settings = {
+export type Settings = {
   model: string
   server: string
+  apiKey: string
 }
 
-const API_LM_STUDIO_DEFAULT = 'http://127.0.0.1:1234/v1/chat/completions'
+const API_LM_STUDIO_DEFAULT = 'http://127.0.0.1:1234/v1'
+
+const API_KEY_LM_STUDIO_DEFAULT = 'lm-studio'
 
 const DEFAULT_SETTINGS: Settings = {
   model: '',
-  server: API_LM_STUDIO_DEFAULT
+  server: API_LM_STUDIO_DEFAULT,
+  apiKey: API_KEY_LM_STUDIO_DEFAULT
 }
 
 const DEFAULT_FOLDER_CONFIG =
