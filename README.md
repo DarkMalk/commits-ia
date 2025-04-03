@@ -67,13 +67,14 @@ mkdir commits-ia
 echo. > config.json
 ```
 
-Para el archivo generado `config.json` debe tener las siguientes propiedades, las cuales corresponden a `model` y `server`.
+Para el archivo generado `config.json` debe tener las siguientes propiedades, las cuales corresponden a `model`, `server` y `apiKey`.
 
 ```json
 {
   "model": "phi-4-mini-instruct",
-  "server": "http://localhost:1234/v1/chat/completions"
+  "server": "http://localhost:1234/v1",
+  "apiKey": "lm-studio"
 }
 ```
 
-**NOTA:** El proyecto generara un archivo por defecto si tu no lo creas, pero dejara el campo del `modelo` vació y el `server` con la dirección de tu equipo local, por ende estará deshabilitado la generación del commit por IA hasta que lo configures en el archivo.
+**NOTA:** El proyecto generara un archivo por defecto si tu no lo creas, pero dejara el campo del `modelo` vació, el `server` con la dirección de tu equipo local y la `apiKey` con el valor por defecto de LM Studio, por ende estará deshabilitado la generación del commit por IA hasta que lo configures en el archivo, con los datos correspondientes o un modelo.
