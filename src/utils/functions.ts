@@ -67,3 +67,12 @@ export const commitFiles = async (message: string) => {
     console.error(error)
   }
 }
+
+export const isGitRepository = async () => {
+  try {
+    await execPromisify(COMMANDS.gitStatus)
+    return true
+  } catch {
+    return false
+  }
+}

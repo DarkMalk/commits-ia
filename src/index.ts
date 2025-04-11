@@ -1,10 +1,15 @@
-import { commitFiles, diffFiles } from './utils/functions.js'
+import { commitFiles, diffFiles, isGitRepository } from './utils/functions.js'
 import { intro, note, outro, confirm } from '@clack/prompts'
 import { manageFiles } from './components/manageFiles.js'
 import { writeCommit } from './components/writeCommit.js'
 import { messages } from './consts/messages.js'
 
 intro(messages.welcome)
+
+if (!(await isGitRepository())) {
+  outro(messages.notGitRepository)
+  process.exit(1)
+}
 
 await manageFiles()
 
