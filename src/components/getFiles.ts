@@ -5,6 +5,11 @@ import { messages } from '../consts/messages.js'
 export const getFilesToAdd = async () => {
   const filesToAdd = await getFiles()
 
+  if (!filesToAdd?.length) {
+    outro(messages.noFilesToAdd)
+    process.exit(0)
+  }
+
   const files = await multiselect<string>({
     message: messages.getFilesToAdd.message,
     options: filesToAdd?.map(file => ({ value: file, label: file })) ?? [],
