@@ -1,5 +1,5 @@
 import OpenAI from 'openai'
-import { prompt } from '../consts/messages.js'
+import { prompt } from '../consts/promptIa.js'
 import { Settings } from './getConfig.js'
 
 type Props = {
@@ -16,14 +16,19 @@ export const generateCommit = async ({ diffFiles, model, server, apiKey }: Props
     model,
     messages: [
       {
+        role: 'system',
+        content: prompt
+      },
+      {
         role: 'user',
-        content: prompt + diffFiles
+        content: diffFiles
       }
-    ]
+    ],
+    temperature: 0.2,
+    max_tokens: 100
   })
 
-  let commit: string = completion.choices[0].message.content ?? ''
-  commit = commit.trim().replace(/"/g, '').slice(0, 72)
+  const commit: string = completion.choices[0].message.content ?? ''
 
-  return commit
+  return commit.split('\n')[0].trim()
 }
