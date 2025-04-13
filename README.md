@@ -1,5 +1,9 @@
 # Commits IA
 
+## Preview
+
+![commits-ia-preview](./preview/commits-ia.webp)
+
 ## Requisitos
 
 - **Node:** v22.11.0 (recomendada)
